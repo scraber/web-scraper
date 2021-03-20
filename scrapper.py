@@ -1,6 +1,9 @@
+from typing import List
+
 import requests
 from bs4 import BeautifulSoup
-from utils import fix_url_http, fix_url_base_relative
+
+from utils import fix_url_base_relative, fix_url_http
 
 
 def _get_page_text(url: str) -> str:
@@ -19,14 +22,29 @@ def _get_page_bytes(url: str) -> bytes:
     return response.content
 
 
-def get_all_images_data(url: str):
+def get_all_text_data(url: str):
+    url = fix_url_http(url)
+
+    page_content = _get_page_text(url)
+
+    soup = BeautifulSoup(page_content, "lxml")
+
+    all_text_data = [line.strip() for line in soup.get_text().splitlines()]
+
+    text_data = ''.join(entry for entry in list(filter(None,all_text_data)))
+
+    return text_data
+
+def get_all_images_data(url: str) -> List:
     url = fix_url_http(url)
 
     page_content = _get_page_bytes(url)
 
     soup = BeautifulSoup(page_content, "lxml")
 
-    image_urls = [fix_url_base_relative(url, image.get("src")) for image in soup.find_all("img")]
+    image_urls = [
+        fix_url_base_relative(url, image.get("src")) for image in soup.find_all("img")
+    ]
 
     image_data = [_get_page_bytes(entry) for entry in image_urls]
 
