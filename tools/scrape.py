@@ -3,7 +3,7 @@ from typing import List
 import requests
 from bs4 import BeautifulSoup
 
-from utils import fix_url_base_relative, fix_url_http
+from tools.utils import fix_url_base_relative, fix_url_http
 
 
 def _get_page_text(url: str) -> str:
