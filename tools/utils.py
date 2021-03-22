@@ -4,7 +4,7 @@ def fix_url_http(url: str) -> str:
     return url
 
 
-def fix_url_base_relative(base_url: str, resource_url: str) -> str:
+def get_resource_full_url(base_url: str, resource_url: str) -> str:
     if resource_url.startswith("http"):
         return resource_url
     if resource_url.startswith("/") and base_url.endswith("/"):

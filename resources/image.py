@@ -2,7 +2,7 @@ from flask_restful import Resource, reqparse
 from sqlalchemy.exc import SQLAlchemyError
 
 from models.image import PageImage
-
+from tools.scrape import get_all_images_data
 
 class PageImageView(Resource):
     parser = reqparse.RequestParser()
@@ -19,6 +19,7 @@ class PageImageView(Resource):
             return {'message': f"This url '{data['url']}' was already scrapped. If you want to update this resource, please send PUT request."}, 409
 
         page = PageImage(url=data['url'])
+        page.image = get_all_images_data(data['url'])
 
         try:
             page.save_to_db()

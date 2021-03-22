@@ -2,6 +2,7 @@ from flask_restful import Resource, reqparse
 from sqlalchemy.exc import SQLAlchemyError
 
 from models.text import PageText
+from tools.scrape import get_all_text_data
 
 
 class PageTextView(Resource):
@@ -19,6 +20,7 @@ class PageTextView(Resource):
             return {'message': f"This url '{data['url']}' was already scrapped. If you want to update this resource, please send PUT request."}, 409
 
         page = PageText(url=data['url'])
+        page.text = get_all_text_data(data['url'])
 
         try:
             page.save_to_db()
