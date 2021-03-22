@@ -1,7 +1,11 @@
 from db import db
+from models.base import BasePage
 
 
-class PageImage(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String, primary_key=True)
+class PageImage(BasePage):
     image = db.Column(db.LargeBinary)
+
+    def to_json(self):
+        res = super().to_json()
+        res.update({'image': self.image})
+        return res
