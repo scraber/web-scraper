@@ -1,10 +1,12 @@
 from db import db
+import datetime
 
 
 class BasePage(db.Model):
     __abstract__ = True
-
-    url = db.Column(db.String, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    url = db.Column(db.String)
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
     def __str__(self):
         return f"url: {self.url}"
@@ -22,4 +24,6 @@ class BasePage(db.Model):
         db.session.commit()
 
     def to_json(self):
-        return {"url": self.url}
+        return {"id": self.id,
+                "url": self.url,
+                "created_at": datetime.datetime.strftime(self.created_at, "%d/%m/%y %H:%M:%S")}

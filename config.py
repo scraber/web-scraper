@@ -1,6 +1,7 @@
 import os
 
+
 class Config:
-    DEBUG = os.environ.get('DEBUG', True) 
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+    DEBUG = os.environ.get("DEBUG", True)
+    SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_TRACK_MODIFICATIONS = False
