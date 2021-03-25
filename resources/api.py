@@ -96,7 +96,7 @@ class PageImageView(Resource):
             [type]: [description]
         """
         data = PageImageView.parser.parse_args()
-        return PageImage.find_url(data["url"]).to_json()
+        return PageImage.find_url_or_404(data["url"]).to_json()
 
 
 class PageImageListView(Resource):
