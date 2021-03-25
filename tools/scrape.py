@@ -84,7 +84,8 @@ def get_all_images_data(url: str) -> List:
     soup = BeautifulSoup(page_content, "lxml")
 
     image_urls = [
-        get_resource_full_url(url, image.get("src")) for image in soup.find_all("img")
+        get_resource_full_url(url, image.get("src", image.get("data-src")))
+        for image in soup.find_all("img")
     ]
 
     image_data = [(entry, _get_page_bytes(entry)) for entry in image_urls]

@@ -58,6 +58,6 @@ def archive_bytes_stream(bytes_data):
 
     with ZipFile(buffer, "w") as zip_file:
         for count, data in enumerate(bytes_data):
-            zip_file.writestr(f'{count}.jpg', data)
+            zip_file.writestr(f"{count}.png", data)
 
     return buffer.getvalue()
