@@ -1,11 +1,10 @@
+import os
+
 from celery import Celery
 from flask import Flask
 from flask_restful import Api
 
 from db import db, migrate
-
-import os
-
 
 app = Flask(__name__)
 app.config.from_object('config.Config')
@@ -28,9 +27,11 @@ class ContextTask(TaskBase):
 celery.Task = ContextTask
 
 # app must be fully loaded at this stage
-from resources.api import PageTaskStatus, PageTextTask, PageImageTask, PageImageView, PageImageListView, PageTextView,PageTextListView
+from resources.api import (PageImageListView, PageImageTask, PageImageView,
+                           PageTaskStatus, PageTextListView, PageTextTask,
+                           PageTextView)
 # tasks must be imported, otherwise celery doesn't register them
-from tasks.tasks import scrape_text, scrape_images    
+from tasks.tasks import scrape_images, scrape_text
 
 api.add_resource(PageTaskStatus, '/scraper/status')
 

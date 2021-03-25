@@ -7,5 +7,5 @@ class PageImage(BasePage):
 
     def to_json(self):
         res = super().to_json()
-        res.update({'image': self.image})
+        res.update({"image": self.image})
         return res
