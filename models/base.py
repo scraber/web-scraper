@@ -26,8 +26,12 @@ class BasePage(db.Model):
         Returns:
             BasePage: found object if exists
         """
-        
-        return cls.query.filter_by(url=url).order_by(db.desc(cls.created_at)).first_or_404()
+
+        return (
+            cls.query.filter_by(url=url)
+            .order_by(db.desc(cls.created_at))
+            .first_or_404()
+        )
 
     def save_to_db(self):
         """

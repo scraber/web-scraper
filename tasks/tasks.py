@@ -1,5 +1,5 @@
 from app import celery
-from models.image import PageImage, Image
+from models.image import Image, PageImage
 from models.text import PageText
 from tools.scrape import get_all_images_data, get_all_text_data
 

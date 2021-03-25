@@ -3,7 +3,7 @@ from models.base import BasePage
 
 
 class PageText(BasePage):
-    __tablename__ = 'pagetext'
+    __tablename__ = "pagetext"
     text = db.Column(db.String)
 
     def to_json(self):
