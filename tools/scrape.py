@@ -75,7 +75,7 @@ def get_all_images_data(url: str) -> List:
         url (str): URL of webpage
 
     Returns:
-        List: of images bytes data
+        List: of tuples (img_url, images bytes data)
     """
     url = fix_url_http(url)
 
@@ -87,6 +87,6 @@ def get_all_images_data(url: str) -> List:
         get_resource_full_url(url, image.get("src")) for image in soup.find_all("img")
     ]
 
-    image_data = [_get_page_bytes(entry) for entry in image_urls]
+    image_data = [(entry, _get_page_bytes(entry)) for entry in image_urls]
 
     return image_data

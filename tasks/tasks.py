@@ -1,5 +1,5 @@
 from app import celery
-from models.image import PageImage
+from models.image import PageImage, Image
 from models.text import PageText
 from tools.scrape import get_all_images_data, get_all_text_data
 
@@ -25,7 +25,9 @@ def scrape_images(url: str):
     Args:
         url (str): URL of page to be scrapped
     """
-    images_list = get_all_images_data(url)
-    for image in images_list:
-        page = PageImage(url=url, image=image)
-        page.save_to_db()
+    images_tuple = get_all_images_data(url)
+    page = PageImage(url=url)
+    page.save_to_db()
+    for image_url, img_data in images_tuple:
+        img = Image(img_url=image_url, page_id=page.id, data=img_data)
+        img.save_to_db()
