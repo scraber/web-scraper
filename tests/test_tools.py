@@ -58,7 +58,17 @@ class TestUtilsMethods(unittest.TestCase):
         """
         test_url = "https://example.com"
         res = utils.fix_url_http(test_url)
-        self.assertEqual(res, test_url)
+        self.assertEqual(res, test_url)\
+
+    
+    def test_fix_url_with_www(self):
+        """
+        Test case where input url starts with www.,
+        returned result should start with `http://`
+        """
+        test_url = "www.example.com"
+        res = utils.fix_url_http(test_url)
+        self.assertEqual(res, 'http://example.com')
 
     def test_fix_url_no_http(self):
         """
@@ -81,7 +91,7 @@ class TestUtilsMethods(unittest.TestCase):
 
     def test_get_resource_full_url_slash_ending(self):
         """
-        Test case where resource url contains is missing base url
+        Test case where resource url is missing base url
         and base url is ending with slash
         """
         base_url = "https://example.com/"
@@ -91,10 +101,20 @@ class TestUtilsMethods(unittest.TestCase):
 
     def test_get_resource_full_url_no_slash_ending(self):
         """
-        Test case where resource url contains is missing base url
+        Test case where resource url is missing base url
         and base url is not ending with slash
         """
         base_url = "https://example.com"
         resource_url = "/static/img/image.png"
         res = utils.get_resource_full_url(base_url, resource_url)
         self.assertEqual(res, base_url + resource_url)
+
+    def test_get_resource_full_url_both_no_slashes(self):
+        """
+        Test case where resource url is missing base url
+        and both urls are missing slashes
+        """
+        base_url = "https://example.com"
+        resource_url = "static/img/image.png"
+        res = utils.get_resource_full_url(base_url, resource_url)
+        self.assertEqual(res, base_url + "/" + resource_url)
